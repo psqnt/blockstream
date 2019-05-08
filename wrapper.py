@@ -16,55 +16,173 @@ class BlockExplorer:
     def __init__(self):
         self.base_url = 'https://blockstream.info/api/'
     
+    def get_transaction(self, tx_id):
+        """
+        Request information about a transaction by ID
+        """
+        method = f'tx/{tx_id}'
+        return self.make_request(method)
+    
+    def get_transaction_status(self, tx_id):
+        """
+        Request the transaction confirmation status
+        """
+        method = f'tx/{tx_id}/status'
+        return self.make_request(method)
+    
+    def get_transaction_hex(self, tx_id):
+        """
+        Request the raw transaction in hex
+        """
+        method = f'tx/{tx_id}/hex'
+        return self.make_request(method)
+    
+    def get_transaction_merkle_proof(self, tx_id):
+        """
+        Request the merkle intrusion proof of a transaction
+        """
+        method = f'tx/{tx_id}/merkle-proof'
+        return self.make_request(method)
+    
+    def get_transaction_output_status(self, tx_id, vout):
+        """
+        Requests the spending status of a transaction output
+        """
+        method = f'tx/{tx_id}/outspend/{vout}'
+        return self.make_request(method)
+    
+    def get_all_transaction_outputs_statuses(self, tx_id):
+        """
+        Requests the spending status of all transaction outputs
+        """
+        method = f'tx/{tx_id}/outspends'
+        return self.make_request(method)
+    
+    def post_transaction(self):
+        """
+        Broadcast a raw transaction to the network
+        """
+        pass
+    
+    def get_address(self, address):
+        """
+        Requests address information
+        """
+        method = f'address/{address}'
+        return self.make_request(method)
+    
+    def get_script_hash(self, script_hash):
+        """
+        Requests information about an address/scripthash
+        """
+        method = f'scripthash/{script_hash}'
+        return self.make_request(method)
+    
+    def get_address_transactions(self, address):
+        """
+        Requests all transactions for an address, newest first
+        """
+        method = f'address/{address}/txs'
+        return self.make_request(method)
+    
+    def get_script_hash_transactions(self, script_hash):
+        """
+        Requests all transactions for an address or script_hash,
+        newest first
+        """
+        method = f'scripthash/{script_hash}/txs'
+        return self.make_request(method)
+
+    def get_confirmed_transaction_history(self, address, ls_tx_id):
+        """
+        Requests confirmed transaction history for an address, newest first
+        25 per page
+        """
+        method = f'address/{address}/txs/chain/{ls_tx_id}'
+        return self.make_request(method)
+    
+    def get_confirmed_script_hash_transaction_history(self, sh, ls_tx_id):
+        """
+        Requests confirmed transaction history for a script_hash, newest first
+        25 per page
+        """
+        method = f'scripthash/{sh}/txs/chain/{ls_tx_id}'
+        return self.make_request(method)
+    
+    def get_address_mempool(self, address):
+        """
+        Requests unconfirmed transaction history of an address, newest first
+        up to 50 transactions no paging
+        """
+        method = f'address/{address}/txs/mempool'
+        return self.make_request(method)
+    
+    def get_script_hash_mempool(self, script_hash):
+        """
+        Requests unconfirmed transaction history of a scripthash, newest first
+        up to 50 transactions no paging
+        """
+        method = f'scripthash/{script_hash}/txs/mempool'
+        return self.make_request(method)
+
+    def get_address_utxo(self, address):
+        """
+        Requests the list of unspent transaction outputs associated with
+        an address
+        """
+        method = f'address/{address}/utxo'
+        return self.make_request(method)
+    
+    def get_script_hash_utxo(self, script_hash):
+        """
+        Requests the list of unspent transaction outputs associated with
+        a scripthash
+        """
+        method = f'scripthash/{script_hash}/utxo'
+        return self.make_request(method)
+
     def get_block_by_hash(self, block_hash):
         """
         Request a given block by hash
         """
-        method = 'block/'
-        url = self.base_url + method + block_hash
-        return requests.get(url).content.decode('utf-8')
+        method = f'block/{block_hash}'
+        return self.make_request(method)
     
     def get_block_by_height(self, height):
         """
         Request a given block by height
         """
-        method = 'block-height/'
-        url = self.base_url + method + height
-        block_hash = requests.get(url).content.decode('utf-8')
+        method = f'block-height/{height}'
+        block_hash = self.make_request(method)
         return self.get_block_by_hash(block_hash)
 
     def get_block_hash_from_height(self, height):
         """
         Request a block hash by specifying the height
         """
-        method = 'block-height/'
-        url = self.base_url + method + height
-        return requests.get(url).content.decode('utf-8')
+        method = f'block-height/{height}'
+        return self.make_request(method)
     
     def get_block_status(self, block_hash):
         """
         Request the block status
         """
         method = f'block/{block_hash}/status'
-        url = self.base_url + method
-        return requests.get(url).content.decode('utf-8')
+        return self.make_request(method)
     
     def get_block_transactions(self, block_hash, start_index='0'):
         """
         Request a list of transactions in a block (up to 25)
         """
         method = f'block/{block_hash}/txs/{start_index}'
-        url = self.base_url + method
-        print(url)
-        return requests.get(url).content.decode('utf-8')
+        return self.make_request(method)
     
     def get_transaction_ids(self, block_hash):
         """
         Request a list of all transaction IDs in a block
         """
         method = f'block/{block_hash}/txids'
-        url = self.base_url + method
-        return requests.get(url).content.decode('utf-8')
+        return self.make_request(method)
     
     def get_blocks(self, start_height=None):
         """
@@ -74,87 +192,55 @@ class BlockExplorer:
         if start_height is None:
             method = 'blocks/'
         else:
-            method = 'blocks/{start_height}'
-        url = self.base_url + method
-        return requests.get(url).content.decode('utf-8')
+            method = f'blocks/{start_height}'
+        
+        return self.make_request(method)
     
     def get_last_block_height(self):
         """
         Request the height of the last block
         """
         method = 'blocks/tip/height'
-        url = self.base_url + method
-        return requests.get(url).content.decode('utf-8')
+        return self.make_request(method)
     
     def get_last_block_hash(self):
         """
         Request the hash of the last block
         """
         method = 'blocks/tip/hash'
+        return self.make_request(method)
+    
+    def get_mempool(self):
+        """
+        Requests mempool backlog statistics
+        """
+        return self.make_request('mempool/')
+    
+    def get_mempool_transaction_ids(self):
+        """
+        Requests the full list of transactions IDs currently in the mempool,
+        as an array
+        """
+        method = 'mempool/txids'
+        return self.make_request(method)
+
+    def get_mempool_recent_transactions(self):
+        """
+        Requests a list of the last 10 transactions to enter the mempool
+        """
+        method = 'mempool/recent'
+        return self.make_request(method)
+    
+    def get_fee_estimates(self):
+        """
+        Requests an object where the key is the confirmation target (in number
+        of blocks) and the value is estimated fee rate (in sat/vB)
+        """
+        return self.make_request('fee-estimates/')
+    
+    def make_request(self, method):
+        """
+        Build a url and make an api request
+        """
         url = self.base_url + method
         return requests.get(url).content.decode('utf-8')
-    
-    
-
-def get_genesis_block(explorer):
-    """
-    Get genesis block (block 0)
-    """
-    height = '0'
-    return explorer.get_block_by_height(height)
-
-
-def get_genesis_block_by_hash(explorer):
-    """
-    Use hash
-    """
-    tx_hash = explorer.get_block_hash_from_height('0')
-    return explorer.get_block_by_hash(tx_hash)
-
-
-# Testing
-explorer = BlockExplorer()
-
-print(get_genesis_block(explorer))
-print(get_genesis_block_by_hash(explorer))
-
-# get hash from height
-block_hash = explorer.get_block_hash_from_height('575165')
-print(block_hash)
-
-# get block from hash
-block = explorer.get_block_by_hash(block_hash)
-print(block)
-
-# get block from height
-block = explorer.get_block_by_height('575165')
-print(block)
-
-# get block status by hash
-block_status = explorer.get_block_status(block_hash)
-print(block_status)
-
-# get block transactions by block hash
-transactions = explorer.get_block_transactions(block_hash)
-print(transactions)
-
-# get block transaction IDs by block hash
-txids = explorer.get_transaction_ids(block_hash)
-print(txids)
-
-# get 10 most recent blocks
-recents = explorer.get_blocks()
-print(recents)
-
-# get 10 blocks starting at specified height
-height_of_interest = '575135'
-ten_blocks = explorer.get_blocks(height_of_interest)
-print(ten_blocks)
-
-# get last block height
-tip_height = explorer.get_last_block_height()
-print(tip_height)
-
-# get last block hash
-tip_hash = explorer.get_last_block_hash()
-print(tip_hash)
