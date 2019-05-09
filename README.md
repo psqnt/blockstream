@@ -1,5 +1,5 @@
-# blockstream-explorer-api-wrapper
-A python wrapper class for blockstream.info's Bitcoin block explorer
+# blockstream-explorer
+A python wrapper class for blockstream.info's Bitcoin block explorer API
 
 Block explorer: https://blockstream.info
 
