@@ -1,6 +1,8 @@
 """
 Example uses for blockstream.info api wrapper class
 """
+import datetime
+
 from wrapper import BlockExplorer
 
 
@@ -69,3 +71,29 @@ print(tip_hash)
 
 
 # good example would be to show total transactions each day over past 10 days
+
+# Look up all blocks in past 10 days
+
+# divide those blocks into each day they occured
+
+# total the number of transactions in all those blocks
+
+# implement a function that gives you all blocks that occured on a certain day
+
+# a function that gives you all transactions that occured on a certain day
+
+# size of mempool given a specific day
+
+# total number of transactions
+
+# average number of transactions per day (since inception, 1 month, 1 year, 3 months, etc)
+
+# average size of block per day ...
+
+# average weight of block per day ...
+
+#### IN A SEPARATE PROGRAM
+
+# pull all that data in and match the data with price at the time (average, high, low)
+
+# build an API wrapper for a price data provider (maybe block stream)
