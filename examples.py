@@ -160,7 +160,7 @@ blocks = []
 for b in ten_blocks:
     block = Block(b['id'], b['height'], b['version'], b['timestamp'], 
             b['tx_count'], b['size'], b['weight'], b['merkle_root'], 
-            b['previous_block_hash'], b['nonce'], b['bits'])
+            b['previousblockhash'], b['nonce'], b['bits'])
     blocks.append(block)
 
 for block in blocks:

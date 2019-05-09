@@ -303,20 +303,3 @@ class Mempool:
         self.vsize = vsize
         self.total_fee = total_fee
         self.fee_histogram = fee_histogram
-
-
-def print_dict(obj):
-    """
-    Print out json so I can read it
-    """
-    for key, value in obj.items():
-        print(key, value)
-
-
-explorer = BlockExplorer()
-block = explorer.get_block_by_height('575260')
-print_dict(block)
-
-block_timestamp = block['timestamp']
-block_dt = datetime.datetime.fromtimestamp(block_timestamp)
-print(block_dt.date())
