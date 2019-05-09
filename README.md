@@ -7,7 +7,7 @@ API Reference: https://github.com/Blockstream/esplora/blob/master/API.md
 
 
 ### Usage
-```
+```python
 from blockstream import BlockExplorer
 
 explorer = BlockExplorer()
