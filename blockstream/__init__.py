@@ -1,12 +1,7 @@
-"""
-A python wrapper for blockstream.info API
-
-reference:
-https://github.com/Blockstream/esplora/blob/master/API.md
-"""
 import datetime
 import requests
 
+name = "blockstream"
 
 class BlockExplorer:
     """
