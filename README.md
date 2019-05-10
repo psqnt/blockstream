@@ -11,12 +11,18 @@ API Reference: https://github.com/Blockstream/esplora/blob/master/API.md
 ```
 pip install blockstream
 ```
-or sometimes
+
+if not in a python3 virtualenv make sure to use python3
 ```
 pip3 install blockstream
 ```
 
-### Usage
+Also install requests (until I figure out how to make it automatically include this)
+```
+pip install requests
+```
+
+## Usage
 ```python
 from blockstream import BlockExplorer
 
@@ -27,5 +33,5 @@ tx_id = '3NukJ6fYZJ5Kk8bPjycAnruZkE5Q7UW7i8'
 tx = explorer.get_transaction(tx_id)
 ```
 
-### Examples
+## Examples
 Reference examples.py to see each method in use
