@@ -1,7 +1,6 @@
 import datetime
 import requests
 
-name = "blockstream"
 
 class BlockExplorer:
     """
@@ -252,49 +251,47 @@ class BlockExplorer:
 
 
 class Block:
-    """Hold block data."""
-    def __init__(self, id, height, version, timestamp, tx_count, size, 
-                 weight, merkle_root, previous_block_hash, nonce, bits):
-        self.id = id
-        self.height = height
-        self.version = version
-        self.timestamp = timestamp
-        self.tx_count = tx_count
-        self.size = size
-        self.weight = weight
-        self.merkle_root = merkle_root
-        self.previous_block_hash = previous_block_hash
-        self.nonce = nonce
-        self.bits = bits
+    """Bitcoin block utility class"""
+    def __init__(self, block):
+        self.id = block['id']
+        self.height = block['height']
+        self.version = block['version']
+        self.timestamp = block['timestamp']
+        self.tx_count = block['tx_count']
+        self.size = block['size']
+        self.weight = block['weight']
+        self.merkle_root = block['merkle_root']
+        self.previous_block_hash = block['previousblockhash']
+        self.nonce = block['nonce']
+        self.bits = block['bits']
 
 
 class Address:
-    """Hold Address data."""
-    def __init__(self, address, chain_stats, mempool_stats):
-        self.address = address  # str
-        self.chain_stats = chain_stats  # dict
-        self.mempool_stats = mempool_stats  # dict
+    """Bitcoin Address utility class."""
+    def __init__(self, address):
+        self.address = address['address']  # str
+        self.chain_stats = address['chain_stats']  # dict
+        self.mempool_stats = address['mempool_stats']  # dict
 
 
 class Transaction:
-    """Hold Transaction data."""
-    def __init__(self, id, version, locktime, vin, 
-                 vout, size, weight, fee, status):
-        self.id = id
-        self.version = version
-        self.locktime = locktime
-        self.vin = vin
-        self.vout = vout
-        self.size = size
-        self.weight = weight
-        self.fee = fee
-        self.status = status
+    """Bitcoin Transaction utility class."""
+    def __init__(self, transaction):
+        self.id = transaction['id']
+        self.version = transaction['version']
+        self.locktime = transaction['locktime']
+        self.vin = transaction['vin']
+        self.vout = transaction['vout']
+        self.size = transaction['size']
+        self.weight = transaction['weight']
+        self.fee = transaction['fee']
+        self.status = transaction['status']
 
 
 class Mempool:
-    """Hold Mempool data."""
-    def __init__(self, count, vsize, total_fee, fee_histogram):
-        self.count = count
-        self.vsize = vsize
-        self.total_fee = total_fee
-        self.fee_histogram = fee_histogram
+    """Bitcoin Mempool utility class."""
+    def __init__(self, mempool):
+        self.count = mempool['count']
+        self.vsize = mempool['vsize']
+        self.total_fee = mempool['total_fee']
+        self.fee_histogram = mempool['fee_histogram']

@@ -158,9 +158,7 @@ print(tip_hash)
 
 blocks = []
 for b in ten_blocks:
-    block = Block(b['id'], b['height'], b['version'], b['timestamp'], 
-            b['tx_count'], b['size'], b['weight'], b['merkle_root'], 
-            b['previousblockhash'], b['nonce'], b['bits'])
+    block = Block(b)
     blocks.append(block)
 
 for block in blocks:
