@@ -1,10 +1,20 @@
-# blockstream-explorer
+# blockstream
 A python wrapper class for blockstream.info's Bitcoin block explorer API
+
+written in Python 3
 
 Block explorer: https://blockstream.info
 
 API Reference: https://github.com/Blockstream/esplora/blob/master/API.md
 
+## Install
+```
+pip install blockstream
+```
+or sometimes
+```
+pip3 install blockstream
+```
 
 ### Usage
 ```python
