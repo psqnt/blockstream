@@ -1,7 +1,9 @@
 # blockstream
-A python wrapper class for blockstream.info's Bitcoin block explorer API
+A python 3 wrapper class for blockstream.info's Bitcoin block explorer API
 
-written in Python 3
+Written in Python 3
+
+Docs: https://github.com/pasquantonio/blockstream/blob/master/docs.md
 
 Block explorer: https://blockstream.info
 
@@ -24,13 +26,15 @@ pip install requests
 
 ## Usage
 ```python
-from blockstream import BlockExplorer
-
-explorer = BlockExplorer()
+from blockstream import blockexplorer
 
 # get transaction by id
-tx_id = '3NukJ6fYZJ5Kk8bPjycAnruZkE5Q7UW7i8'
-tx = explorer.get_transaction(tx_id)
+tx_id = '56a5b477182cddb6edb460b39135a3dc785eaf7ea88a572052a761d6983e26a2'
+tx = blockexplorer.get_transaction(tx_id)
+
+# get address data
+address = '1Bgut7QkwZS6pGyCi6CHeFkNN4Z5DzGP7P'
+addr_info = blockexplorer.get_address(address)
 ```
 
 ## Examples
