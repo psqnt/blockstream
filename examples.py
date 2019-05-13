@@ -66,7 +66,8 @@ mempool_tx_ids = blockexplorer.get_mempool_transaction_ids()
 
 # get mempool recent transactions 
 recent_mempool_txs = blockexplorer.get_mempool_transaction_ids()
-#print(recent_mempool_txs)
+#
+# print(recent_mempool_txs)
 
 # get fee estimates
 fee_estimates = blockexplorer.get_fee_estimates()

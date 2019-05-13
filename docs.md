@@ -1,5 +1,5 @@
-# documentation
-# BlockExplorer
+# block explorer
+
 ## import
 ``` python
 from blockstream import blockexplorer
