@@ -19,11 +19,6 @@ if not in a python3 virtualenv make sure to use python3
 pip3 install blockstream
 ```
 
-Also install requests (until I figure out how to make it automatically include this)
-```
-pip install requests
-```
-
 ## Usage
 ```python
 from blockstream import blockexplorer
