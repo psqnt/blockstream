@@ -28,7 +28,7 @@ tx_id = '56a5b477182cddb6edb460b39135a3dc785eaf7ea88a572052a761d6983e26a2'
 tx = blockexplorer.get_transaction(tx_id)
 
 # get address data
-address = '1Bgut7QkwZS6pGyCi6CHeFkNN4Z5DzGP7P'
+address = '3ADPkym6mQ2HyP7uASh5g3VYauhCWZpczF'
 addr_info = blockexplorer.get_address(address)
 ```
 
@@ -37,3 +37,6 @@ Reference examples.py to see each method in use
 
 ## Issues
 the `scripthash` endpoint seems to be broken, however you can get data about a scripthash address by calling the `address` endpoint. I have decided to remove the functions to hit the `scripthash` endpoint for now.
+
+## Donations
+BTC: `3ADPkym6mQ2HyP7uASh5g3VYauhCWZpczF`
