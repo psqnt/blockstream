@@ -154,6 +154,16 @@ confirmed_tx_hist = blockexplorer.get_confirmed_transaction_history(address)
 ```python
 addr_mempool = blockexplorer.get_address_mempool(address)
 ```
+## `UTXO` Class
+API Docs: https://github.com/Blockstream/esplora/blob/master/API.md#get-addressaddressutxo
+
+Example JSON Response: https://blockstream.info/api/address/3ADPkym6mQ2HyP7uASh5g3VYauhCWZpczF/utxo
+```
++ tx_id: str
++ vout: int
++ status: dict
++ value: int
+```
 ## get address utxo
 ```python
 addr_utxo = blockexplorer.get_address_utxo(address)
