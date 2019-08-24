@@ -37,6 +37,3 @@ Reference examples.py to see each method in use
 
 ## Issues
 the `scripthash` endpoint seems to be broken, however you can get data about a scripthash address by calling the `address` endpoint. I have decided to remove the functions to hit the `scripthash` endpoint for now.
-
-## Donations
-BTC: `3ADPkym6mQ2HyP7uASh5g3VYauhCWZpczF`
