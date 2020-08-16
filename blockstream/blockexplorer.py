@@ -296,6 +296,9 @@ class BlockStatus:
         self.height = status['height']
         self.next_best = status['next_best']
 
+    def __str__(self):
+        return str(vars(self))
+
 
 class Block:
     """Bitcoin block utility class"""
@@ -312,6 +315,9 @@ class Block:
         self.nonce = block['nonce']
         self.bits = block['bits']
 
+    def __str__(self):
+        return str(vars(self))
+
 
 class Address:
     """Bitcoin Address utility class."""
@@ -319,6 +325,9 @@ class Address:
         self.address = address['address']  # str
         self.chain_stats = address['chain_stats']  # dict
         self.mempool_stats = address['mempool_stats']  # dict
+
+    def __str__(self):
+        return str(vars(self))
 
 
 class UTXO:
@@ -329,14 +338,20 @@ class UTXO:
         self.status = TransactionStatus(utxo['status'])
         self.value = utxo['value']
 
+    def __str__(self):
+        return str(vars(self))
+
 
 class TransactionStatus:
     """Transaction status utility."""
     def __init__(self, status):
-        self.confirmed = status['confirmed']
-        self.block_height = status['block_height']
-        self.block_hash = status['block_hash']
-        self.block_time = status['block_time']
+        self.confirmed = status.get('confirmed')
+        self.block_height = status.get('block_height')
+        self.block_hash = status.get('block_hash')
+        self.block_time = status.get('block_time')
+
+    def __str__(self):
+        return str(vars(self))
 
 
 class TransactionMerkleProof:
@@ -345,6 +360,9 @@ class TransactionMerkleProof:
         self.block_height = merkle['block_height']
         self.merkle = merkle['merkle']
         self.pos = merkle['pos']
+
+    def __str__(self):
+        return str(vars(self))
 
 
 class TransactionOutput:
@@ -355,10 +373,14 @@ class TransactionOutput:
         self.vin = output['vin']
         self.status = TransactionStatus(output['status'])
 
+    def __str__(self):
+        return str(vars(self))
+
 
 class Transaction:
     """Bitcoin Transaction utility class."""
     def __init__(self, transaction):
+        print(transaction)
         self.id = transaction['txid']
         self.version = transaction['version']
         self.locktime = transaction['locktime']
@@ -369,6 +391,9 @@ class Transaction:
         self.fee = transaction['fee']
         self.status = TransactionStatus(transaction['status'])
 
+    def __str__(self):
+        return str(vars(self))
+
 
 class Mempool:
     """Bitcoin Mempool utility class."""
@@ -378,6 +403,9 @@ class Mempool:
         self.total_fee = mempool['total_fee']
         self.fee_histogram = mempool['fee_histogram']
 
+    def __str__(self):
+        return str(vars(self))
+
 
 class MempoolRecent:
     """Recent TXs in mempool utility."""
@@ -386,6 +414,9 @@ class MempoolRecent:
         self.fee = info['fee']
         self.vsize = info['vsize']
         self.value = info['value']
+
+    def __str__(self):
+        return str(vars(self))
 
 
 class FeeEstimates:
@@ -400,3 +431,6 @@ class FeeEstimates:
         self.onefourfour_blocks = data['144']
         self.fivezerofour_blocks = data['504']
         self.tenzeroeight_blocks = data['1008']
+
+    def __str__(self):
+        return str(vars(self))
