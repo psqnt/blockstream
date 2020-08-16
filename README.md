@@ -3,7 +3,7 @@ A python 3 wrapper class for blockstream.info's Bitcoin block explorer API
 
 Written in Python 3
 
-Docs: https://github.com/pasquantonio/blockstream/blob/master/docs.md
+Docs: https://github.com/psqnt/blockstream/blob/master/docs.md
 
 Block explorer: https://blockstream.info
 
