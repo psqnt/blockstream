@@ -5,9 +5,8 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
       name='blockstream',
-      version='0.1.0',
-      author='Joe Pasquantonio',
-      author_email='joepasquantonio@gmail.com',
+      version='0.2.0',
+      author='psqnt',
       description='API wrapper for blockstream block explorer',
       long_description=long_description,
       long_description_content_type='text/markdown',

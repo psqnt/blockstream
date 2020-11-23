@@ -1,7 +1,13 @@
+import os
 import requests
 
 
-BASE_URL = 'https://blockstream.info/api/'
+TESTNET_API = os.environ.get('BLOCKSTREAM_TESTNET_API') or 0
+if TESTNET_API == 1 or TESTNET_API == '1':
+    BASE_URL = 'https://blockstream.info/testnet/api/'
+else:
+    BASE_URL = 'https://blockstream.info/api/'
+
 
 def call_api(endpoint):
     """

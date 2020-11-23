@@ -165,6 +165,7 @@ Example JSON Response: https://blockstream.info/api/address/3ADPkym6mQ2HyP7uASh5
 + value: int
 ```
 ## get address utxo
+Returns an instance of `UTXO` class
 ```python
 addr_utxo = blockexplorer.get_address_utxo(address)
 ```

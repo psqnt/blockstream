@@ -334,9 +334,9 @@ class TransactionStatus:
     """Transaction status utility."""
     def __init__(self, status):
         self.confirmed = status['confirmed']
-        self.block_height = status['block_height']
-        self.block_hash = status['block_hash']
-        self.block_time = status['block_time']
+        self.block_height = status.get('block_height')
+        self.block_hash = status.get('block_hash')
+        self.block_time = status.get('block_time')
 
 
 class TransactionMerkleProof:
