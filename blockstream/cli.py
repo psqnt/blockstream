@@ -3,6 +3,7 @@ import os
 import sys
 import json
 import click
+from . import blockexplorer
 
 
 INDENT = 2
@@ -12,6 +13,22 @@ def echo_infile(infile):
     """Reads a file into text"""
     for line in infile:
         click.echo(line)
+
+
+def blockstream_request(param_type, parameter):
+    """
+    Make blockstream function call based on type requested
+    height, hash, transaction or address
+    """
+    if param_type == 'height':
+        return blockexplorer.get_block_by_height(parameter)
+    if param_type == 'hash':
+        return blockexplorer.get_block_by_hash(parameter)
+    if param_type == 'transaction':
+        return blockexplorer.get_transaction(parameter)
+    if param_type == 'address':
+        return blockexplorer.get_address(parameter)
+    return {"message": "Error, must be height, hash, transaction, or address"}
 
 
 class Config(object):
@@ -26,28 +43,24 @@ pass_config = click.make_pass_decorator(Config, ensure=True)
 @click.group()
 @click.argument('infile', type=click.File('r'), default='-')
 @click.argument('outfile', type=click.File('w'), default='-')
-@click.option('--log-file', '-l', type=click.File('w'), default=sys.stderr)
 @click.option('--verbose', '-v', is_flag=True)
-@click.option('--json', is_flag=True)
 @pass_config
-def cli(config, infile, outfile, log_file, verbose, json):
+def cli(config, infile, outfile, verbose):
     config.verbose = verbose
-    config.json = json
     if config.verbose:
         click.echo("Verbose mode On")
-        click.echo(f"JSON output: {json}")
     config.infile = infile
     config.outfile = outfile
 
 
 @cli.command()
-@click.argument('parameter', type=click.STRING)
+@click.argument('parameter', type=click.STRING, default="")
 @click.option('--param_type', type=click.STRING, required=True,
-              help='block height, hash, transaction, or address')
+              help='height, hash, transaction, or address')
 @pass_config
 def request(config, parameter, param_type):
-    """Echos a seed in hex format"""
-    param_types = ['block height', 'height', 'hash', 'transaction', 'address']
+    """Makes a request to blockstream info api and echos response"""
+    param_types = ['height', 'hash', 'transaction', 'address']
     if param_type not in param_types:
         raise click.BadOptionUsage(
             message=f'param_type must be one of these: {param_types}',
@@ -55,5 +68,9 @@ def request(config, parameter, param_type):
         )
     if config.verbose:
         click.echo(f"Sending API request to blockstream")
-    click.echo(param_type)
-    click.echo(parameter)
+    if parameter:
+        response = blockstream_request(param_type, parameter)
+    else:
+        input_parameter = config.infile.readline().strip()
+        response = blockstream_request(param_type, input_parameter)
+    click.echo(json.dumps(response.serialized(), indent=INDENT))

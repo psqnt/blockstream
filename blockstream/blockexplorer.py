@@ -1,4 +1,12 @@
 from . import util
+from collections.abc import Mapping
+
+
+def handle_error(param):
+    """If init param is not a dict, request failed. Handle gracefully"""
+    if not isinstance(param, Mapping):
+        print(param)
+        exit(1)
 
 
 def get_transaction(tx_id):
@@ -292,9 +300,10 @@ def get_fee_estimates():
 class BlockStatus:
     """Bitcoin block status utility."""
     def __init__(self, status):
-        self.in_best_chain = status['in_best_chain']
-        self.height = status['height']
-        self.next_best = status['next_best']
+        handle_error(status)
+        self.in_best_chain = status.get('in_best_chain')
+        self.height = status.get('height')
+        self.next_best = status.get('next_best')
 
     def __str__(self):
         return str(vars(self))
@@ -307,17 +316,18 @@ class BlockStatus:
 class Block:
     """Bitcoin block utility class"""
     def __init__(self, block):
-        self.id = block['id']
-        self.height = block['height']
-        self.version = block['version']
-        self.timestamp = block['timestamp']
-        self.tx_count = block['tx_count']
-        self.size = block['size']
-        self.weight = block['weight']
-        self.merkle_root = block['merkle_root']
-        self.previous_block_hash = block['previousblockhash']
-        self.nonce = block['nonce']
-        self.bits = block['bits']
+        handle_error(block)
+        self.id = block.get('id')
+        self.height = block.get('height')
+        self.version = block.get('version')
+        self.timestamp = block.get('timestamp')
+        self.tx_count = block.get('tx_count')
+        self.size = block.get('size')
+        self.weight = block.get('weight')
+        self.merkle_root = block.get('merkle_root')
+        self.previous_block_hash = block.get('previousblockhash')
+        self.nonce = block.get('nonce')
+        self.bits = block.get('bits')
 
     def __str__(self):
         return str(vars(self))
@@ -329,10 +339,11 @@ class Block:
 
 class Address:
     """Bitcoin Address utility class."""
-    def __init__(self, address):
-        self.address = address['address']  # str
-        self.chain_stats = address['chain_stats']  # dict
-        self.mempool_stats = address['mempool_stats']  # dict
+    def __init__(self, addr):
+        handle_error(addr)
+        self.address = addr.get('address')  # str
+        self.chain_stats = addr.get('chain_stats')  # dict
+        self.mempool_stats = addr.get('mempool_stats')  # dict
 
     def __str__(self):
         return str(vars(self))
@@ -345,10 +356,11 @@ class Address:
 class UTXO:
     """Bitcoin UTXO utility class."""
     def __init__(self, utxo):
-        self.tx_id = utxo['txid']
-        self.vout = utxo['vout']
-        self.status = TransactionStatus(utxo['status']).serialized()
-        self.value = utxo['value']
+        handle_error(utxo)
+        self.tx_id = utxo.get('txid')
+        self.vout = utxo.get('vout')
+        self.status = TransactionStatus(utxo.get('status')).serialized()
+        self.value = utxo.get('value')
 
     def __str__(self):
         return str(vars(self))
@@ -361,6 +373,7 @@ class UTXO:
 class TransactionStatus:
     """Transaction status utility."""
     def __init__(self, status):
+        handle_error(status)
         self.confirmed = status.get('confirmed')
         self.block_height = status.get('block_height')
         self.block_hash = status.get('block_hash')
@@ -377,9 +390,10 @@ class TransactionStatus:
 class TransactionMerkleProof:
     """Tx Merkle proof utility."""
     def __init__(self, merkle):
-        self.block_height = merkle['block_height']
-        self.merkle = merkle['merkle']
-        self.pos = merkle['pos']
+        handle_error(merkle)
+        self.block_height = merkle.get('block_height')
+        self.merkle = merkle.get('merkle')
+        self.pos = merkle.get('pos')
 
     def __str__(self):
         return str(vars(self))
@@ -392,10 +406,11 @@ class TransactionMerkleProof:
 class TransactionOutput:
     """Tx Output utility."""
     def __init__(self, output):
-        self.spend = output['spent']
-        self.tx_id = output['txid']
-        self.vin = output['vin']
-        self.status = TransactionStatus(output['status']).serialized()
+        handle_error(output)
+        self.spend = output.get('spent')
+        self.tx_id = output.get('txid')
+        self.vin = output.get('vin')
+        self.status = TransactionStatus(output.get('status')).serialized()
 
     def __str__(self):
         return str(vars(self))
@@ -408,16 +423,16 @@ class TransactionOutput:
 class Transaction:
     """Bitcoin Transaction utility class."""
     def __init__(self, transaction):
-        print(transaction)
-        self.id = transaction['txid']
-        self.version = transaction['version']
-        self.locktime = transaction['locktime']
-        self.vin = transaction['vin']
-        self.vout = transaction['vout']
-        self.size = transaction['size']
-        self.weight = transaction['weight']
-        self.fee = transaction['fee']
-        self.status = TransactionStatus(transaction['status']).serialized()
+        handle_error(transaction)
+        self.id = transaction.get('txid')
+        self.version = transaction.get('version')
+        self.locktime = transaction.get('locktime')
+        self.vin = transaction.get('vin')
+        self.vout = transaction.get('vout')
+        self.size = transaction.get('size')
+        self.weight = transaction.get('weight')
+        self.fee = transaction.get('fee')
+        self.status = TransactionStatus(transaction.get('status')).serialized()
 
     def __str__(self):
         return str(vars(self))
@@ -430,10 +445,11 @@ class Transaction:
 class Mempool:
     """Bitcoin Mempool utility class."""
     def __init__(self, mempool):
-        self.count = mempool['count']
-        self.vsize = mempool['vsize']
-        self.total_fee = mempool['total_fee']
-        self.fee_histogram = mempool['fee_histogram']
+        handle_error(mempool)
+        self.count = mempool.get('count')
+        self.vsize = mempool.get('vsize')
+        self.total_fee = mempool.get('total_fee')
+        self.fee_histogram = mempool.get('fee_histogram')
 
     def __str__(self):
         return str(vars(self))
@@ -446,10 +462,11 @@ class Mempool:
 class MempoolRecent:
     """Recent TXs in mempool utility."""
     def __init__(self, info):
-        self.tx_id = info['txid']
-        self.fee = info['fee']
-        self.vsize = info['vsize']
-        self.value = info['value']
+        handle_error(info)
+        self.tx_id = info.get('txid')
+        self.fee = info.get('fee')
+        self.vsize = info.get('vsize')
+        self.value = info.get('value')
 
     def __str__(self):
         return str(vars(self))
@@ -462,15 +479,16 @@ class MempoolRecent:
 class FeeEstimates:
     """Fee Estimates utility class."""
     def __init__(self, data):
-        self.two_blocks = data['2']
-        self.three_blocks = data['3']
-        self.four_blocks = data['4']
-        self.six_blocks = data['6']
-        self.ten_blocks = data['10']
-        self.twenty_blocks = data['20']
-        self.onefourfour_blocks = data['144']
-        self.fivezerofour_blocks = data['504']
-        self.tenzeroeight_blocks = data['1008']
+        handle_error(data)
+        self.two_blocks = data.get('2')
+        self.three_blocks = data.get('3')
+        self.four_blocks = data.get('4')
+        self.six_blocks = data.get('6')
+        self.ten_blocks = data.get('10')
+        self.twenty_blocks = data.get('20')
+        self.onefourfour_blocks = data.get('144')
+        self.fivezerofour_blocks = data.get('504')
+        self.tenzeroeight_blocks = data.get('1008')
 
     def __str__(self):
         return str(vars(self))
