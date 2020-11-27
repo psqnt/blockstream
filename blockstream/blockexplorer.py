@@ -299,6 +299,10 @@ class BlockStatus:
     def __str__(self):
         return str(vars(self))
 
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
+
 
 class Block:
     """Bitcoin block utility class"""
@@ -318,6 +322,10 @@ class Block:
     def __str__(self):
         return str(vars(self))
 
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
+
 
 class Address:
     """Bitcoin Address utility class."""
@@ -329,17 +337,25 @@ class Address:
     def __str__(self):
         return str(vars(self))
 
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
+
 
 class UTXO:
     """Bitcoin UTXO utility class."""
     def __init__(self, utxo):
         self.tx_id = utxo['txid']
         self.vout = utxo['vout']
-        self.status = TransactionStatus(utxo['status'])
+        self.status = TransactionStatus(utxo['status']).serialized()
         self.value = utxo['value']
 
     def __str__(self):
         return str(vars(self))
+
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
 
 
 class TransactionStatus:
@@ -353,6 +369,10 @@ class TransactionStatus:
     def __str__(self):
         return str(vars(self))
 
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
+
 
 class TransactionMerkleProof:
     """Tx Merkle proof utility."""
@@ -364,6 +384,10 @@ class TransactionMerkleProof:
     def __str__(self):
         return str(vars(self))
 
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
+
 
 class TransactionOutput:
     """Tx Output utility."""
@@ -371,10 +395,14 @@ class TransactionOutput:
         self.spend = output['spent']
         self.tx_id = output['txid']
         self.vin = output['vin']
-        self.status = TransactionStatus(output['status'])
+        self.status = TransactionStatus(output['status']).serialized()
 
     def __str__(self):
         return str(vars(self))
+
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
 
 
 class Transaction:
@@ -389,10 +417,14 @@ class Transaction:
         self.size = transaction['size']
         self.weight = transaction['weight']
         self.fee = transaction['fee']
-        self.status = TransactionStatus(transaction['status'])
+        self.status = TransactionStatus(transaction['status']).serialized()
 
     def __str__(self):
         return str(vars(self))
+
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
 
 
 class Mempool:
@@ -406,6 +438,10 @@ class Mempool:
     def __str__(self):
         return str(vars(self))
 
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
+
 
 class MempoolRecent:
     """Recent TXs in mempool utility."""
@@ -417,6 +453,10 @@ class MempoolRecent:
 
     def __str__(self):
         return str(vars(self))
+
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
 
 
 class FeeEstimates:
@@ -434,3 +474,7 @@ class FeeEstimates:
 
     def __str__(self):
         return str(vars(self))
+
+    def serialized(self):
+        """Returns dict of values"""
+        return vars(self)
